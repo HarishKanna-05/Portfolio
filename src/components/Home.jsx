@@ -18,7 +18,7 @@ function Home() {
   // Download PDF function
   const downloadResume = () => {
     const link = document.createElement("a");
-    link.href = "/resume.pdf";
+    link.href = "../../public/resume.pdf";
     link.download = "Harish_Kanna_Resume.pdf";
     document.body.appendChild(link);
     link.click();
