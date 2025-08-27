@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useCallback } from "react";
 import Landing from "./Landing";
 import Header from "./Header";
 import { FaLinkedinIn, FaGithub } from "react-icons/fa";
 import { BiLogoGmail } from "react-icons/bi";
 function Home() {
-  // Smooth scroll to section
-  const scrollToSection = (sectionId) => {
+  // Smooth scroll to section - memoized to prevent recreation
+  const scrollToSection = useCallback((sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({
@@ -13,17 +13,36 @@ function Home() {
         block: "start",
       });
     }
-  };
+  }, []);
 
-  // Download PDF function
-  const downloadResume = () => {
+  // Download PDF function - memoized to prevent recreation
+  const downloadResume = useCallback(() => {
     const link = document.createElement("a");
-    link.href = "../../public/resume.pdf";
+    link.href = "../../public/resume_v2.pdf";
     link.download = "Harish_Kanna_Resume.pdf";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  };
+  }, []);
+
+  // Memoized social media handlers
+  const handleLinkedInClick = useCallback((e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    window.open("https://www.linkedin.com/in/harishkannaa/", "_blank");
+  }, []);
+
+  const handleGitHubClick = useCallback((e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    window.open("https://github.com/HarishKanna-05", "_blank");
+  }, []);
+
+  const handleEmailClick = useCallback((e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    window.location.href = "mailto:harishkannaaravindan@gmail.com";
+  }, []);
 
   return (
     <section id="home" className="relative h-screen w-full overflow-hidden">
@@ -73,38 +92,17 @@ function Home() {
       >
         <div className="flex items-center justify-center space-x-8 px-10 py-2">
           {/* LinkedIn */}
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              window.open(
-                "https://www.linkedin.com/in/harishkannaa/",
-                "_blank"
-              );
-            }}
-          >
+          <button onClick={handleLinkedInClick}>
             <FaLinkedinIn className="w-6 h-6 text-black" />
           </button>
 
           {/* GitHub */}
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              window.open("https://github.com/HarishKanna-05", "_blank");
-            }}
-          >
+          <button onClick={handleGitHubClick}>
             <FaGithub className="w-6 h-6 text-black" />
           </button>
 
           {/* Email */}
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              window.location.href = "mailto:harishkannaaravindan@gmail.com";
-            }}
-          >
+          <button onClick={handleEmailClick}>
             <BiLogoGmail className="w-6 h-6 text-black" />
           </button>
         </div>

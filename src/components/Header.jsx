@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useMemo, useCallback } from "react";
 import coloredLogo from "../assets/colored-logo.png";
 
 function Header() {
-  const scrollToSection = (sectionId) => {
+  // Memoize scroll function to prevent recreation
+  const scrollToSection = useCallback((sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({
@@ -10,7 +11,18 @@ function Header() {
         block: "start",
       });
     }
-  };
+  }, []);
+
+  // Memoize navigation items to prevent recreation
+  const navigationItems = useMemo(
+    () => [
+      { id: "home", label: "Home" },
+      { id: "skills", label: "Skills" },
+      { id: "projects", label: "Projects" },
+      { id: "contact", label: "Contact" },
+    ],
+    []
+  );
 
   return (
     <header className="absolute top-2 left-0 right-0 z-50 px-4 md:px-8 max-w-7xl mx-auto">
@@ -27,12 +39,7 @@ function Header() {
         {/* Navigation in the center */}
         <nav className="bg-black bg-opacity-30 backdrop-blur-xl -mt-3 sm:-mt-4 md:-mt-5 lg:-mt-6 rounded-full px-3 sm:px-4 md:px-6 lg:px-8">
           <div className="flex items-center space-x-2 sm:space-x-4 md:space-x-6 lg:space-x-8">
-            {[
-              { id: "home", label: "Home" },
-              { id: "skills", label: "Skills" },
-              { id: "projects", label: "Projects" },
-              { id: "contact", label: "Contact" },
-            ].map((item) => (
+            {navigationItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}

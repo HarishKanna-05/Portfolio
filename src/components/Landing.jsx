@@ -1,20 +1,30 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
 function Landing() {
+  const scriptLoadedRef = useRef(false);
+
   useEffect(() => {
-    // Load UnicornStudio script dynamically
+    // Prevent multiple script loads
+    if (scriptLoadedRef.current) return;
+
+    // Load UnicornStudio script dynamically only once
     if (!window.UnicornStudio) {
       window.UnicornStudio = { isInitialized: false };
       const script = document.createElement("script");
       script.src =
         "https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js";
+      script.async = true;
       script.onload = function () {
         if (!window.UnicornStudio.isInitialized) {
           window.UnicornStudio.init();
           window.UnicornStudio.isInitialized = true;
         }
       };
+      script.onerror = function () {
+        console.warn("Failed to load UnicornStudio script");
+      };
       (document.head || document.body).appendChild(script);
+      scriptLoadedRef.current = true;
     }
   }, []);
 

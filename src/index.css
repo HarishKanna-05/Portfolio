@@ -18,6 +18,44 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
+/* Performance optimizations */
+* {
+  /* Enable hardware acceleration for smooth animations */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Optimize images for performance */
+img {
+  /* Enable GPU rendering for images */
+  transform: translateZ(0);
+  will-change: transform;
+  /* Improve image rendering */
+  image-rendering: optimizeQuality;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* Reduce paint for hover effects */
+.group:hover * {
+  will-change: transform, opacity, color, background-color, box-shadow;
+}
+
+/* Contain layout shifts */
+.skills-grid,
+.projects-grid {
+  contain: layout style paint;
+}
+
+/* Optimize SVG rendering */
+svg {
+  /* Enable GPU rendering for SVGs */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
 /* Ribbon Animation */
 @keyframes scroll {
   0% {
@@ -30,6 +68,9 @@ body {
 
 .animate-scroll {
   animation: scroll 30s linear infinite;
+  /* Enable hardware acceleration for animation */
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 /* Ensure social media icons are always clickable */
@@ -48,6 +89,9 @@ body {
 /* Prevent UnicornStudio canvas from interfering with clicks */
 canvas {
   pointer-events: none !important;
+  /* Enable hardware acceleration for canvas */
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 div[data-us-project] {
@@ -56,4 +100,17 @@ div[data-us-project] {
 
 div[data-us-project] canvas {
   pointer-events: none !important;
+}
+
+/* Optimize transitions for better performance */
+.transition-all {
+  transition-property: background-color, border-color, color, fill, stroke,
+    opacity, box-shadow, transform, filter, backdrop-filter,
+    -webkit-backdrop-filter;
+}
+
+/* Add containment for better layout performance */
+.project-card,
+.skill-card {
+  contain: layout style paint;
 }
