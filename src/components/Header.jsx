@@ -20,7 +20,7 @@ function Header() {
           <img
             src={coloredLogo}
             alt="Logo"
-            className="h-16 sm:h-20 md:h-24 lg:h-28 -mt-3 sm:-mt-4 md:-mt-5 lg:-mt-6 w-auto"
+            className="h-12 sm:h-14 md:h-16 lg:h-20  w-auto"
           />
         </div>
 
