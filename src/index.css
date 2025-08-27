@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  background-color: #000000;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Smooth scroll behavior for the entire page */
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Ribbon Animation */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 30s linear infinite;
+}
+
+/* Ensure social media icons are always clickable */
+.social-media-container {
+  pointer-events: auto !important;
+  z-index: 99999 !important;
+  position: relative !important;
+}
+
+.social-media-container button {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  z-index: 100000 !important;
+}
+
+/* Prevent UnicornStudio canvas from interfering with clicks */
+canvas {
+  pointer-events: none !important;
+}
+
+div[data-us-project] {
+  pointer-events: none !important;
+}
+
+div[data-us-project] canvas {
+  pointer-events: none !important;
+}
