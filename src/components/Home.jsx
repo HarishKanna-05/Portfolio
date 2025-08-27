@@ -3,6 +3,8 @@ import Landing from "./Landing";
 import Header from "./Header";
 import { FaLinkedinIn, FaGithub } from "react-icons/fa";
 import { BiLogoGmail } from "react-icons/bi";
+import resume from "../../public/resume_v2.pdf";
+
 function Home() {
   // Smooth scroll to section - memoized to prevent recreation
   const scrollToSection = useCallback((sectionId) => {
@@ -18,7 +20,7 @@ function Home() {
   // Download PDF function - memoized to prevent recreation
   const downloadResume = useCallback(() => {
     const link = document.createElement("a");
-    link.href = "../../public/resume_v2.pdf";
+    link.href = resume;
     link.download = "Harish_Kanna_Resume.pdf";
     document.body.appendChild(link);
     link.click();
